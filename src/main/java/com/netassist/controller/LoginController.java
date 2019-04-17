@@ -53,7 +53,7 @@ public class LoginController {
 			if(loginTeacher!=null) {
 				session.setAttribute("teacher", loginTeacher);
 				return new Result(true, "登录成功");
-			}else {
+			}else { 
 				return new Result(false, "登录失败");
 			}
 		}
