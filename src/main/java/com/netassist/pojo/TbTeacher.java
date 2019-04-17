@@ -7,6 +7,12 @@ public class TbTeacher {
 
     private String password;
 
+    private String logo;
+
+    private String realname;
+
+    private String field;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +35,29 @@ public class TbTeacher {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo == null ? null : logo.trim();
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field == null ? null : field.trim();
     }
 }

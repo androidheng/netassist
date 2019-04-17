@@ -93,5 +93,21 @@ public class StudentServiceImpl implements StudentService {
 		Page<TbStudent> page= (Page<TbStudent>)studentMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public TbStudent findStudent(TbStudent student) {
+			TbStudentExample example=new TbStudentExample();
+			Criteria criteria = example.createCriteria();
+			if(student!=null){			
+				if(student.getUsername()!=null)
+					criteria.andUsernameEqualTo(student.getUsername());
+				if(student.getPassword()!=null)
+					criteria.andPasswordEqualTo(student.getPassword());
+			}
+			List<TbStudent> list = studentMapper.selectByExample(example);
+			if(list.size()>0)
+				return list.get(0);
+			return null;
+		}
 	
 }

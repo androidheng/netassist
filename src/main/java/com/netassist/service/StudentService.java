@@ -57,5 +57,8 @@ public interface StudentService {
 	 * @return
 	 */
 	public PageResult findPage(TbStudent student, int pageNum,int pageSize);
+
+
+	public TbStudent findStudent(TbStudent student);
 	
 }

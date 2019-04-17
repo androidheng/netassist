@@ -1,6 +1,6 @@
 package com.netassist.service;
 import java.util.List;
-import com.netassist.pojo.TbTeacher;
+import com.netassist.pojo.TbSwork;
 
 import entity.PageResult;
 /**
@@ -8,13 +8,13 @@ import entity.PageResult;
  * @author Administrator
  *
  */
-public interface TeacherService {
+public interface SworkService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TbTeacher> findAll();
+	public List<TbSwork> findAll();
 	
 	
 	/**
@@ -27,13 +27,13 @@ public interface TeacherService {
 	/**
 	 * 增加
 	*/
-	public void add(TbTeacher teacher);
+	public void add(TbSwork swork);
 	
 	
 	/**
 	 * 修改
 	 */
-	public void update(TbTeacher teacher);
+	public void update(TbSwork swork);
 	
 
 	/**
@@ -41,7 +41,7 @@ public interface TeacherService {
 	 * @param id
 	 * @return
 	 */
-	public TbTeacher findOne(Integer id);
+	public TbSwork findOne(Integer id);
 	
 	
 	/**
@@ -56,9 +56,6 @@ public interface TeacherService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbTeacher teacher, int pageNum,int pageSize);
-
-
-	public TbTeacher findTeacher(TbTeacher teacher);
+	public PageResult findPage(TbSwork swork, int pageNum,int pageSize);
 	
 }

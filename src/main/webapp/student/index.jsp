@@ -44,13 +44,19 @@
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>operator/order.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>空气监测</em>
+                                <em>我的作业</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>operator/form.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>空气报表</em>
+                                 <em>我的签到</em>
+                             </a>
+                    </li>
+                    <li class="layui-nav-item">
+                            <a href="<%=basePath%>operator/form.jsp">
+                                 <i class="layui-icon">&#xe612;</i>
+                                 <em>我的提问</em>
                              </a>
                     </li>
                 </ul>

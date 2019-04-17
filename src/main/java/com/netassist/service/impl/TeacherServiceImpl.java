@@ -93,5 +93,26 @@ public class TeacherServiceImpl implements TeacherService {
 		Page<TbTeacher> page= (Page<TbTeacher>)teacherMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public TbTeacher findTeacher(TbTeacher teacher) {
+			TbTeacherExample example=new TbTeacherExample();
+			Criteria criteria = example.createCriteria();
+			
+			if(teacher!=null){			
+				if(teacher.getUsername()!=null) {
+					criteria.andUsernameEqualTo(teacher.getUsername());
+				}	
+				if(teacher.getPassword()!=null) {
+					criteria.andPasswordEqualTo(teacher.getPassword());
+				}	
+			}
+			
+			List<TbTeacher> list = teacherMapper.selectByExample(example);
+			if(list.size()>0) {
+				return list.get(0);
+			}
+			return null;
+		}
 	
 }

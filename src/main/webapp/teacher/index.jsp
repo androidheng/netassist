@@ -44,25 +44,25 @@
  					<li class="layui-nav-item">
                             <a href="<%=basePath%>admin/product.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>站长信息</em>
+                                <em>资料信息</em>
                             </a>
                         </li>
                          <li class="layui-nav-item">
                             <a href="<%=basePath%>admin/operaterule.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>站点信息</em>
+                                <em>作业管理(子菜单:作业信息,学生作业批改)</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>admin/order.jsp">
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>空气监测</em>
+                                <em>签到信息</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
                             <a href="<%=basePath%>admin/form.jsp">
                                  <i class="layui-icon">&#xe612;</i>
-                                 <em>空气报表</em>
+                                 <em>学生提问管理</em>
                              </a>
                     </li>
                 </ul>
