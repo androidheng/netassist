@@ -87,11 +87,13 @@ public class MaterialServiceImpl implements MaterialService {
 		Criteria criteria = example.createCriteria();
 		
 		if(material!=null){			
-				
+			if(material.getTitle()!=null) {
+				criteria.andTitleLike("%"+material.getTitle()+"%");
+			}
 		}
 		
 		Page<TbMaterial> page= (Page<TbMaterial>)materialMapper.selectByExample(example);		
-		return new PageResult(page.getTotal(), page.getResult());
+		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
 	
 }

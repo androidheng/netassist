@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.netassist.pojo.TbMaterial;
 import com.netassist.service.MaterialService;
 
@@ -186,8 +188,13 @@ public class MaterialController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbMaterial material, int page, int rows  ){
-		return materialService.findPage(material, page, rows);		
+	public PageResult search(String key , int page, int limit  ){
+		TbMaterial material=null;
+		if(!StringUtils.isEmpty(key)) {
+			material=new TbMaterial();
+			material.setTitle(key);
+		}
+		return materialService.findPage(material, page, limit);		
 	}
 	
 }
