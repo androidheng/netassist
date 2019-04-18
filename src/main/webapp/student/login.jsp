@@ -30,14 +30,13 @@
                     <span class="label-title">密码</span>
                 </label>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"  style="text-align:left">选择站点</label>
-                <div class="layui-input-block">
-                  <select name="cid" id="cityList" lay-verify="city" lay-filter="cityList">
-                    
-                  </select>
-                </div>
-              </div>
+           <div class="layui-form-item" pane="">
+               <label class="layui-form-label">登录角色</label>
+               <div class="layui-input-block">
+                 <input type="radio" name="role" value="student" title="学生" checked="">
+                 <input type="radio" name="role" value="teacher" title="老师">
+               </div>
+            </div>
             <button type="button" class="login-button" lay-submit="" lay-filter="login">登录<i class="ai ai-enter"></i></button>
         </form>
     </div>

@@ -23,7 +23,7 @@
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">BieJun</a>
+                    <a href="javascript:;">Admin</a>
                     <dl class="layui-nav-child">
                         <dd><a href="">帮助中心</a></dd>
                         <dd><a href="<%=basePath%>login.jsp">退出</a></dd>
@@ -36,29 +36,29 @@
             <div class="layui-side-scroll">
 
                 <div class="custom-logo">
-                    <img src="<%=basePath%>assets/images/logo.png" alt=""/>
+                    
                     <h1>后台管理系统</h1>
                 </div>
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
+ 					<li class="layui-nav-item">
+                         <a href="<%=basePath%>student/login.jsp">
+                               <i class="layui-icon">&#xe62a;</i>
+                               <em>我的作业</em>
+                         </a>
+                    </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>operator/order.jsp">
-                                <i class="layui-icon">&#xe612;</i>
-                                <em>我的作业</em>
-                            </a>
+                         <a href="<%=basePath%>student/form.jsp">
+                              <i class="layui-icon">&#xe637;</i>
+                               <em>我的签到 </em>
+                         </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>operator/form.jsp">
-                                 <i class="layui-icon">&#xe612;</i>
-                                 <em>我的签到</em>
-                             </a>
-                    </li>
-                    <li class="layui-nav-item">
-                            <a href="<%=basePath%>operator/form.jsp">
-                                 <i class="layui-icon">&#xe612;</i>
-                                 <em>我的提问</em>
-                             </a>
-                    </li>
+                            <a href="<%=basePath%>student/order.jsp">
+                                <i class="layui-icon">&#xe63a;</i>
+                                <em>我的提问</em>
+                            </a>
+                        </li>
                 </ul>
            </div>
         </div>
