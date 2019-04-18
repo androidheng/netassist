@@ -42,25 +42,30 @@
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
  					<li class="layui-nav-item">
-                            <a href="<%=basePath%>admin/product.jsp">
+                            <a href="<%=basePath%>teacher/dataAndInformation.jsp">
                                 <i class="layui-icon">&#xe612;</i>
                                 <em>资料信息</em>
                             </a>
                         </li>
                          <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin/operaterule.jsp">
+                            <a >
                                 <i class="layui-icon">&#xe612;</i>
-                                <em>作业管理(子菜单:作业信息,学生作业批改)</em>
+                                <em>作业管理</em>
                             </a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="<%=basePath%>teacher/homeWork.jsp">作业信息</a></dd>
+                                <dd><a href="<%=basePath%>teacher/jobInformation.jsp">学生作业批改</a></dd>
+                              
+                            </dl>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin/order.jsp">
+                            <a href="<%=basePath%>teacher/Sign.jsp">
                                 <i class="layui-icon">&#xe612;</i>
                                 <em>签到信息</em>
                             </a>
                         </li>
                     <li class="layui-nav-item">
-                            <a href="<%=basePath%>admin/form.jsp">
+                            <a href="<%=basePath%>teacher/studentQustion.jsp">
                                  <i class="layui-icon">&#xe612;</i>
                                  <em>学生提问管理</em>
                              </a>

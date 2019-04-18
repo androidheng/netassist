@@ -54,52 +54,17 @@
           if(value.length < 3){
             return '用户名至少得3个字符啊';
           }
-        },
-        city:function(value){
-          if(!value.length){
-            return '请选择站点';
-          }
-         }
+        }
         ,pass: [
           /^[\S]{6,12}$/
           ,'密码必须6到12位，且不能出现空格'
         ]
       });
-    //重新渲染表单
-      function renderForm(){
-       layui.use('form', function(){
-       var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
-       form.render();
-       });
-       }
-      getoption()
-      //获取站点信息列表
-      function getoption(){
     
-     	$.ajax({
-             url:"<%=basePath%>city/findAll",
-             type:'post',//method请求方式，get或者post
-             dataType:'json',//预期服务器返回的数据类型
-             contentType: "application/json; charset=utf-8",
-             success:function(res){//res为相应体,function为回调函数
-            	
-                 let options = "<option value=''></option>"
-                 res.forEach(item=>{
-                	 options+="<option value='" + item.id + "'>" + item.city + "</option>";
-                 })
-                
-                 $("#cityList").append(options)
-              
-                 renderForm()
-             },
-             error:function(){
-               layer.alert('操作失败！！！',{icon:5});
-             }
-           });
-      }
+     
       //监听提交
       form.on('submit(login)', function(data){
-    	  data.field.cid = + data.field.cid
+    	  console.log(data.field)
     	  $.ajax({
             url:"<%=basePath%>user/login",
             type:'post',//method请求方式，get或者post
