@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,7 +29,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/material")
 public class MaterialController {
 
@@ -59,8 +61,9 @@ public class MaterialController {
 	 * @param material
 	 * @return
 	 */
+	
 	@RequestMapping("/add")
-	public Result add( TbMaterial material,@RequestParam("files") MultipartFile[] files,HttpSession session,HttpServletRequest request){
+	public String add( TbMaterial material,@RequestParam("files") MultipartFile[] files,HttpSession session,HttpServletRequest request){
 		try {
 			TbTeacher tbTeacher=(TbTeacher) session.getAttribute("teacher");
 			if(tbTeacher!=null) {
@@ -98,7 +101,7 @@ public class MaterialController {
 					                    System.out.println("文件成功上传到指定目录下");
 					                }else {
 					                    System.out.println("不是我们想要的文件类型,请按要求重新上传");
-					                    return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
+					                   // return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
 					                }
 				            	}else {
 				            		if ("TXT".equals(type.toUpperCase())||"PDF".equals(type.toUpperCase())||"DOC".equals(type.toUpperCase())||"DOCX".equals(type.toUpperCase())) {
@@ -123,7 +126,7 @@ public class MaterialController {
 					                    System.out.println("文件成功上传到指定目录下");
 					                }else {
 					                    System.out.println("不是我们想要的文件类型,请按要求重新上传");
-					                    return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
+					                   // return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
 					                }
 				            	}
 				                
@@ -136,17 +139,19 @@ public class MaterialController {
 		          
 				
 				} 
+				material.setTid(tbTeacher.getId());
 				material.setCratetime(DateUtils.getCurrent());
 				materialService.add(material);
 				System.out.println(material);
-				return new Result(true, "添加成功");
+				//return new Result(true, "添加成功");
 			}else {
-				return new Result(false, "请先登录");
+				//return new Result(false, "请先登录");
 			}
-			
+			return "redirect:/teacher/materialList";
 			}catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "添加失败");
+			//return new Result(false, "添加失败");
+			return "redirect:/teacher/materialList";
 		}
 	}
 	
@@ -165,6 +170,7 @@ public class MaterialController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody TbMaterial material){
 		try {
@@ -183,6 +189,7 @@ public class MaterialController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key, int page, int limit){
 		TbMaterial material=null;

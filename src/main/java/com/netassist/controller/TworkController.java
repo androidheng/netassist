@@ -70,7 +70,7 @@ public class TworkController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add( TbTwork twork,@RequestParam("files") MultipartFile file,HttpServletRequest request,HttpSession session){
+	public String add( TbTwork twork,@RequestParam("files") MultipartFile file,HttpServletRequest request,HttpSession session){
 		try {
 			TbTeacher tbTeacher=(TbTeacher) session.getAttribute("teacher");
 			if(tbTeacher!=null) {
@@ -104,7 +104,7 @@ public class TworkController {
 				                    System.out.println("文件成功上传到指定目录下");
 				                }else {
 				                    System.out.println("不是我们想要的文件类型,请按要求重新上传");
-				                    return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
+				                   // return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
 				                }
 			                
 			            }else {
@@ -117,15 +117,16 @@ public class TworkController {
 			} 
 			twork.setCreatetime(DateUtils.getCurrent());
 			tworkService.add(twork);
-			return new Result(true, "添加成功");
+			//return new Result(true, "添加成功");
 			}else {
-				return new Result(false, "请先登录");
+				//return new Result(false, "请先登录");
 			}
-			
+			//return "redirect:/teacher/homeWork";
 			}catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "添加失败");
+			//return new Result(false, "添加失败");
 		}
+		return "redirect:/teacher/sworklList";
 	}
 	
 	/**

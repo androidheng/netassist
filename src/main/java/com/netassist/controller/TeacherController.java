@@ -1,10 +1,12 @@
 package com.netassist.controller;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.netassist.pojo.TbTeacher;
 import com.netassist.service.TeacherService;
 
@@ -15,7 +17,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/teacher")
 public class TeacherController {
 
@@ -106,9 +108,20 @@ public class TeacherController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbTeacher teacher, int page, int limit  ){
 		return teacherService.findPage(teacher, page, limit);		
+	}
+	
+	@RequestMapping("materialList")
+	public String toMaterialList() {
+		return "dataAndInformation";
+	}
+	
+	@RequestMapping("sworklList")
+	public String toSworklList() {
+		return "homeWork";
 	}
 	
 }
