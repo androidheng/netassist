@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="<%=basePath%>assets/css/layui.css">
+     <link rel="stylesheet" href="<%=basePath%>assets/css/layui.css">
     <link rel="stylesheet" href="<%=basePath%>assets/css/view.css"/>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link rel="icon" href="/favicon.ico">
@@ -40,7 +40,7 @@
                       </div>
                                                                              签到日期：
                       <div class="layui-inline">
-                          <input type="text" class="layui-input" id="dates" placeholder="yyyy-MM-dd">
+                          <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">
                       </div>
                        <button class="layui-btn" data-type="reload">查询</button>
                      </div>
@@ -51,26 +51,28 @@
         </div>
     </div>
    </div>
-    <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
+   <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
     <script type="text/html" id="barDemo">
        <a class="layui-btn layui-btn-xs" lay-event="edit">下载</a>
        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">评分</a>
     </script>
    
     <script>
-  layui.use('table', function(){
+       layui.use('laydate', function(){
+    	  var laydate = layui.laydate;
+    	   //常规用法
+    	  laydate.render({
+    	    elem: '#test1'
+    	  });
+      });
+      layui.use('table', function(){
     
-     var table = layui.table,form = layui.form,$=layui.$;
-     var laydate = layui.laydate;
-     
-     //常规用法
-     laydate.render({
-       elem: '#dates'
-     });
-   //方法级渲染
+     var table = layui.table,form = layui.form,$=layui.$
+    
+    //方法级渲染
      table.render({
        elem: '#LAY_table_user'
-       ,url: '/demo/table/user/'
+       ,url: '<%=basePath%>sign/search'
        ,cols: [[
          ,{field:'username', title: '用户名', width:80}
          ,{field:'sex', title: '性别', width:80, sort: true}
@@ -90,7 +92,7 @@
      var $ = layui.$, active = {
        reload: function(){
          var demoReload = $('#demoReload');
-         var dates = $('#dates');
+         var dates = $('#test1');
          
          //执行重载
          table.reload('testReload', {
