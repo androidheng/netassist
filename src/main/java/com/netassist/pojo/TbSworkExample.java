@@ -493,6 +493,136 @@ public class TbSworkExample {
             addCriterion("ttid not between", value1, value2, "ttid");
             return (Criteria) this;
         }
+
+        public Criteria andIsdowloadIsNull() {
+            addCriterion("isDowload is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadIsNotNull() {
+            addCriterion("isDowload is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadEqualTo(String value) {
+            addCriterion("isDowload =", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadNotEqualTo(String value) {
+            addCriterion("isDowload <>", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadGreaterThan(String value) {
+            addCriterion("isDowload >", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadGreaterThanOrEqualTo(String value) {
+            addCriterion("isDowload >=", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadLessThan(String value) {
+            addCriterion("isDowload <", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadLessThanOrEqualTo(String value) {
+            addCriterion("isDowload <=", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadLike(String value) {
+            addCriterion("isDowload like", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadNotLike(String value) {
+            addCriterion("isDowload not like", value, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadIn(List<String> values) {
+            addCriterion("isDowload in", values, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadNotIn(List<String> values) {
+            addCriterion("isDowload not in", values, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadBetween(String value1, String value2) {
+            addCriterion("isDowload between", value1, value2, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsdowloadNotBetween(String value1, String value2) {
+            addCriterion("isDowload not between", value1, value2, "isdowload");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidIsNull() {
+            addCriterion("sid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidIsNotNull() {
+            addCriterion("sid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidEqualTo(Integer value) {
+            addCriterion("sid =", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidNotEqualTo(Integer value) {
+            addCriterion("sid <>", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidGreaterThan(Integer value) {
+            addCriterion("sid >", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sid >=", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidLessThan(Integer value) {
+            addCriterion("sid <", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidLessThanOrEqualTo(Integer value) {
+            addCriterion("sid <=", value, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidIn(List<Integer> values) {
+            addCriterion("sid in", values, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidNotIn(List<Integer> values) {
+            addCriterion("sid not in", values, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidBetween(Integer value1, Integer value2) {
+            addCriterion("sid between", value1, value2, "sid");
+            return (Criteria) this;
+        }
+
+        public Criteria andSidNotBetween(Integer value1, Integer value2) {
+            addCriterion("sid not between", value1, value2, "sid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

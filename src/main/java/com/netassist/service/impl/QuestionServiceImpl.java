@@ -55,7 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
 	 */
 	@Override
 	public void update(TbQuestion question){
-		questionMapper.updateByPrimaryKey(question);
+		questionMapper.updateByPrimaryKeySelective(question);
 	}	
 	
 	/**
@@ -87,11 +87,11 @@ public class QuestionServiceImpl implements QuestionService {
 		Criteria criteria = example.createCriteria();
 		
 		if(question!=null){			
-				
+			criteria.andQuestionLike("%"+question.getQuestion()+"%");	
 		}
 		
 		Page<TbQuestion> page= (Page<TbQuestion>)questionMapper.selectByExample(example);		
-		return new PageResult(page.getTotal(), page.getResult());
+		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
 	
 }

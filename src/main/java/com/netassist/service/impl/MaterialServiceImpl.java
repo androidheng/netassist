@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.netassist.mapper.TbMaterialMapper;
+import com.netassist.mapper.TbTeacherMapper;
 import com.netassist.pojo.TbMaterial;
 import com.netassist.pojo.TbMaterialExample;
 import com.netassist.pojo.TbMaterialExample.Criteria;
@@ -72,10 +73,8 @@ public class MaterialServiceImpl implements MaterialService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			materialMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		materialMapper.deleteByPrimaryKey(id);
 	}
 	
 	

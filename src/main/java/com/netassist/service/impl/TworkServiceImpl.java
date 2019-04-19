@@ -55,7 +55,7 @@ public class TworkServiceImpl implements TworkService {
 	 */
 	@Override
 	public void update(TbTwork twork){
-		tworkMapper.updateByPrimaryKey(twork);
+		tworkMapper.updateByPrimaryKeySelective(twork);
 	}	
 	
 	/**
@@ -69,13 +69,11 @@ public class TworkServiceImpl implements TworkService {
 	}
 
 	/**
-	 * 批量删除
+	 * 删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			tworkMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		tworkMapper.deleteByPrimaryKey(id);
 	}
 	
 	
@@ -87,11 +85,21 @@ public class TworkServiceImpl implements TworkService {
 		Criteria criteria = example.createCriteria();
 		
 		if(twork!=null){			
-				
+			if(twork.getTitle()!=null) {
+				criteria.andTitleEqualTo(twork.getTitle());
+			}	
 		}
 		
 		Page<TbTwork> page= (Page<TbTwork>)tworkMapper.selectByExample(example);		
-		return new PageResult(page.getTotal(), page.getResult());
+		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public List<TbTwork> findNAll() {
+			TbTworkExample example=new TbTworkExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andEnableEqualTo("Y");
+			return tworkMapper.selectByExample(example);
+		}
 	
 }

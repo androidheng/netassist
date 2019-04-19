@@ -15,6 +15,8 @@ public class TbTwork {
 
     private String enable;
 
+    private String teachername;
+    
     public Integer getId() {
         return id;
     }
@@ -70,4 +72,13 @@ public class TbTwork {
     public void setEnable(String enable) {
         this.enable = enable == null ? null : enable.trim();
     }
+
+	public String getTeachername() {
+		return teachername;
+	}
+
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
+    
 }

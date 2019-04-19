@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.netassist.pojo.TbSign;
 import com.netassist.service.SignService;
 
@@ -107,7 +109,12 @@ public class SignController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbSign sign, int page, int rows  ){
+	public PageResult search(String key , int page, int rows  ){
+		TbSign sign=null;
+		if(!StringUtils.isEmpty(key)) {
+			sign=new TbSign();
+			sign.setSigntime(key);
+		}
 		return signService.findPage(sign, page, rows);		
 	}
 	

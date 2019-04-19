@@ -87,11 +87,11 @@ public class SignServiceImpl implements SignService {
 		Criteria criteria = example.createCriteria();
 		
 		if(sign!=null){			
-				
+			criteria.andSigntimeEqualTo(sign.getSigntime());	
 		}
 		
 		Page<TbSign> page= (Page<TbSign>)signMapper.selectByExample(example);		
-		return new PageResult(page.getTotal(), page.getResult());
+		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
 	
 }

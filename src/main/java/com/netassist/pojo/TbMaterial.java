@@ -14,6 +14,8 @@ public class TbMaterial {
     private Integer tid;
 
     private String cratetime;
+    
+    private String teachername;
 
     public Integer getId() {
         return id;
@@ -70,4 +72,14 @@ public class TbMaterial {
     public void setCratetime(String cratetime) {
         this.cratetime = cratetime == null ? null : cratetime.trim();
     }
+
+	public String getTeachername() {
+		return teachername;
+	}
+
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
+    
+    
 }

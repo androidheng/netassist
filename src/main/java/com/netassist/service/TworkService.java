@@ -45,17 +45,20 @@ public interface TworkService {
 	
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页
 	 * @param pageNum 当前页 码
 	 * @param pageSize 每页记录数
 	 * @return
-	 */
+	 */ 
 	public PageResult findPage(TbTwork twork, int pageNum,int pageSize);
+
+
+	public List<TbTwork> findNAll();
 	
 }

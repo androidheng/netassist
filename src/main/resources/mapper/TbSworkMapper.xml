@@ -8,6 +8,8 @@
     <result column="score" property="score" jdbcType="VARCHAR" />
     <result column="committime" property="committime" jdbcType="VARCHAR" />
     <result column="ttid" property="ttid" jdbcType="INTEGER" />
+    <result column="isDowload" property="isdowload" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, tid, file, score, committime, ttid
+    id, tid, file, score, committime, ttid, isDowload, sid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.netassist.pojo.TbSworkExample" >
     select
@@ -102,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.netassist.pojo.TbSwork" >
     insert into tb_swork (id, tid, file, 
-      score, committime, ttid
-      )
+      score, committime, ttid, 
+      isDowload, sid)
     values (#{id,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{file,jdbcType=VARCHAR}, 
-      #{score,jdbcType=VARCHAR}, #{committime,jdbcType=VARCHAR}, #{ttid,jdbcType=INTEGER}
-      )
+      #{score,jdbcType=VARCHAR}, #{committime,jdbcType=VARCHAR}, #{ttid,jdbcType=INTEGER}, 
+      #{isdowload,jdbcType=VARCHAR}, #{sid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.netassist.pojo.TbSwork" >
     insert into tb_swork
@@ -129,6 +131,12 @@
       <if test="ttid != null" >
         ttid,
       </if>
+      <if test="isdowload != null" >
+        isDowload,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,6 +156,12 @@
       </if>
       <if test="ttid != null" >
         #{ttid,jdbcType=INTEGER},
+      </if>
+      <if test="isdowload != null" >
+        #{isdowload,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +192,12 @@
       <if test="record.ttid != null" >
         ttid = #{record.ttid,jdbcType=INTEGER},
       </if>
+      <if test="record.isdowload != null" >
+        isDowload = #{record.isdowload,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +210,9 @@
       file = #{record.file,jdbcType=VARCHAR},
       score = #{record.score,jdbcType=VARCHAR},
       committime = #{record.committime,jdbcType=VARCHAR},
-      ttid = #{record.ttid,jdbcType=INTEGER}
+      ttid = #{record.ttid,jdbcType=INTEGER},
+      isDowload = #{record.isdowload,jdbcType=VARCHAR},
+      sid = #{record.sid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +235,12 @@
       <if test="ttid != null" >
         ttid = #{ttid,jdbcType=INTEGER},
       </if>
+      <if test="isdowload != null" >
+        isDowload = #{isdowload,jdbcType=VARCHAR},
+      </if>
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +250,9 @@
       file = #{file,jdbcType=VARCHAR},
       score = #{score,jdbcType=VARCHAR},
       committime = #{committime,jdbcType=VARCHAR},
-      ttid = #{ttid,jdbcType=INTEGER}
+      ttid = #{ttid,jdbcType=INTEGER},
+      isDowload = #{isdowload,jdbcType=VARCHAR},
+      sid = #{sid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

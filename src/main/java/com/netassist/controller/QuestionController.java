@@ -1,12 +1,19 @@
 package com.netassist.controller;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.netassist.pojo.TbQuestion;
+import com.netassist.pojo.TbStudent;
+import com.netassist.pojo.TbTeacher;
 import com.netassist.service.QuestionService;
+import com.netassist.service.TeacherService;
 
 import entity.PageResult;
 import entity.Result;
@@ -21,6 +28,8 @@ public class QuestionController {
 
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private TeacherService teacherService;
 	
 	/**
 	 * 返回全部列表
@@ -47,10 +56,16 @@ public class QuestionController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbQuestion question){
+	public Result add(@RequestBody TbQuestion question,HttpSession session){
 		try {
-			questionService.add(question);
-			return new Result(true, "增加成功");
+			TbStudent loginStudent=(TbStudent) session.getAttribute("student");
+			if(loginStudent!=null) {
+				questionService.add(question);
+				return new Result(true, "提问成功");	
+			}else {
+				return new Result(false, "请先登录");	
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "增加失败");
@@ -72,7 +87,24 @@ public class QuestionController {
 			return new Result(false, "修改失败");
 		}
 	}	
-	
+	@RequestMapping("/answer")
+	public Result answer(@RequestBody TbQuestion question,HttpSession session){
+		try {
+			TbTeacher tbTeacher=(TbTeacher) session.getAttribute("teacher");
+			if(tbTeacher!=null) {
+				question.setTid(tbTeacher.getId());
+				questionService.update(question);
+				return new Result(true, "回答成功");
+			}else {
+				return new Result(false, "请先登录");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改失败");
+		}
+	}
 	/**
 	 * 获取实体
 	 * @param id
@@ -107,8 +139,21 @@ public class QuestionController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbQuestion question, int page, int rows  ){
-		return questionService.findPage(question, page, rows);		
+	public PageResult search(String key, int page, int limit  ){
+		TbQuestion question=null;
+		if(!StringUtils.isEmpty(key)) {
+			question=new TbQuestion();
+			question.setQuestion(key);
+		}
+		PageResult result = questionService.findPage(question, page, limit);
+		List<TbQuestion> list = result.getData();
+		for (TbQuestion tbQuestion : list) {
+			if(!StringUtils.isEmpty(tbQuestion.getTid())) {
+				tbQuestion.setStatus("已回答");
+				tbQuestion.setTeachername(teacherService.findOne(tbQuestion.getTid()).getUsername());
+			}
+		}
+		return result;
 	}
 	
 }

@@ -55,7 +55,7 @@ public class SworkServiceImpl implements SworkService {
 	 */
 	@Override
 	public void update(TbSwork swork){
-		sworkMapper.updateByPrimaryKey(swork);
+		sworkMapper.updateByPrimaryKeySelective(swork);
 	}	
 	
 	/**
@@ -91,7 +91,7 @@ public class SworkServiceImpl implements SworkService {
 		}
 		
 		Page<TbSwork> page= (Page<TbSwork>)sworkMapper.selectByExample(example);		
-		return new PageResult(page.getTotal(), page.getResult());
+		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
 	
 }

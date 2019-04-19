@@ -17,6 +17,9 @@ public class TbQuestion {
 
     private String phone;
 
+    private Integer sid;
+    private String teachername;
+    private String status="未回答";
     public Integer getId() {
         return id;
     }
@@ -80,4 +83,27 @@ public class TbQuestion {
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
     }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTeachername() {
+		return teachername;
+	}
+
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
 }
