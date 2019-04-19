@@ -87,7 +87,12 @@ public class SworkServiceImpl implements SworkService {
 		Criteria criteria = example.createCriteria();
 		
 		if(swork!=null){			
-				
+			if(swork.getTtid()!=null) {
+				criteria.andTtidEqualTo(swork.getTtid());
+			}	
+			if(swork.getSid()!=null) {
+				criteria.andTtidEqualTo(swork.getSid());
+			}
 		}
 		
 		Page<TbSwork> page= (Page<TbSwork>)sworkMapper.selectByExample(example);		

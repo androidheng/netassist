@@ -86,8 +86,13 @@ public class QuestionServiceImpl implements QuestionService {
 		TbQuestionExample example=new TbQuestionExample();
 		Criteria criteria = example.createCriteria();
 		
-		if(question!=null){			
-			criteria.andQuestionLike("%"+question.getQuestion()+"%");	
+		if(question!=null){	
+			if(question.getQuestion()!=null) {
+				criteria.andQuestionLike("%"+question.getQuestion()+"%");	
+			}
+			if(question.getSid()!=null) {
+				criteria.andSidEqualTo(question.getSid());	
+			}
 		}
 		
 		Page<TbQuestion> page= (Page<TbQuestion>)questionMapper.selectByExample(example);		

@@ -65,7 +65,7 @@ public class SworkController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add( TbSwork swork,@RequestParam("files") MultipartFile file,HttpSession session,HttpServletRequest request){
+	public Result add( TbSwork swork,@RequestParam("file") MultipartFile file,HttpSession session,HttpServletRequest request){
 		try {
 			TbStudent tbStudent=(TbStudent) session.getAttribute("student");
 			if(tbStudent!=null) {
@@ -233,6 +233,30 @@ public class SworkController {
 			tbSwork.setScore(studentService.findOne(tbSwork.getSid()).getUsername());
 		}
 		return 	result;
+	}
+	
+	@RequestMapping("/myWork")
+	public PageResult myWork(String key , int page, int limit,HttpSession session  ){
+		TbStudent tbStudent=(TbStudent) session.getAttribute("student");
+		if(tbStudent!=null) {
+			TbSwork swork=new TbSwork();
+			if(!StringUtils.isEmpty(key)) {
+				swork.setTid(Integer.parseInt(key));
+			}
+			PageResult result = sworkService.findPage(swork, page, limit);
+			List<TbSwork> list = result.getData();
+			for (TbSwork tbSwork : list) {
+				if(!StringUtils.isEmpty(tbSwork.getTid())) {
+					tbSwork.setTeachername(teacherService.findOne(tbSwork.getTid()).getUsername());
+					tbSwork.setStatus("已批改");
+				}
+				tbSwork.setScore(studentService.findOne(tbSwork.getSid()).getUsername());
+			}
+			return 	result;
+		}else {
+			return null;
+		}
+	
 	}
 	
 }

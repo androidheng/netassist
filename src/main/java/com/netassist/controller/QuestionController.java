@@ -60,6 +60,7 @@ public class QuestionController {
 		try {
 			TbStudent loginStudent=(TbStudent) session.getAttribute("student");
 			if(loginStudent!=null) {
+				question.setSid(loginStudent.getId());
 				questionService.add(question);
 				return new Result(true, "提问成功");	
 			}else {
@@ -155,5 +156,28 @@ public class QuestionController {
 		}
 		return result;
 	}
-	
+	@RequestMapping("/myQuestion")
+	public PageResult myQuestion(String key, int page, int limit,HttpSession session){
+		TbStudent loginStudent=(TbStudent) session.getAttribute("student");
+		if(loginStudent!=null) {
+			TbQuestion question=new TbQuestion();
+			if(!StringUtils.isEmpty(key)) {
+				question.setQuestion(key);
+			}
+			question.setSid(loginStudent.getId());
+			PageResult result = questionService.findPage(question, page, limit);
+			List<TbQuestion> list = result.getData();
+			for (TbQuestion tbQuestion : list) {
+				if(!StringUtils.isEmpty(tbQuestion.getTid())) {
+					tbQuestion.setStatus("已回答");
+					tbQuestion.setTeachername(teacherService.findOne(tbQuestion.getTid()).getUsername());
+				}
+			}
+			return result;
+		}else {
+			return null;
+			//return new Result(false, "请先登录");	
+		}
+		
+	}
 }
