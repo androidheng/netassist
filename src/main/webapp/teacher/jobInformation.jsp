@@ -15,7 +15,12 @@
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
         <div class="layui-form" style="padding:10px 0px;background:#fff;margin-top:50px;"></form>
-          
+             <div class="layui-form-item">
+              <label class="layui-form-label">输入分数</label>
+                <div class="layui-input-block">
+                  <input type="number" name="title" id="score" lay-verify="required" autocomplete="off" placeholder="请输入分数" class="layui-input">
+                </div>
+           </div>
         </div>	
      </div>
     <div class="layui-content">
@@ -54,7 +59,7 @@
     <script>
   layui.use('table', function(){
     
-     var table = layui.table,form = layui.form,$=layui.$;
+     var table = layui.table,form = layui.form,$=layui.$,layer=layui.layer;
    //方法级渲染
      table.render({
        elem: '#LAY_table_user'
@@ -103,26 +108,61 @@
          var data = obj.data;
          //console.log(obj)
          if(obj.event === 'del'){
-           layer.confirm('真的删除行么', function(index){
-        	  $.ajax({
-                   url:"<%=basePath%>user/delete",
-                   type:'post',//method请求方式，get或者post
-                   dataType:'json',//预期服务器返回的数据类型
-                   data:JSON.stringify({id:data.id}),
-                   contentType: "application/json; charset=utf-8",
-                   success:function(res){//res为相应体,function为回调函数
-                	   obj.del();
-                       layer.close(index);
-                    
-                   },
-                   error:function(){
-                       layer.alert('操作失败！！！',{icon:5});
-                   }
-                 });
-           
-           });
+        	 layer.open({
+      	         type: 1
+      	        ,title: false //不显示标题栏
+      	        ,closeBtn: true
+      	        ,area: ['600px','400px']
+        	    ,btn:['确定']
+      	        ,shade: 0.8
+      	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+      	        ,btnAlign: 'c'
+      	        ,moveType: 1 //拖拽模式，0或者1
+      	        ,content: $("#box"),
+      	        success:function(){
+      	        	
+      	        	
+      	        },
+      	        yes:function(){
+      	        	$.ajax({
+      	                 url:"<%=basePath%>swork/score",
+      	                 type:'post',//method请求方式，get或者post
+      	                 dataType:'json',//预期服务器返回的数据类型
+      	                 data:JSON.stringify({id:data.id,score:$("#score").val()}),
+      	                 contentType: "application/json; charset=utf-8",
+      	                 success:function(res){//res为相应体,function为回调函数
+      	              	     
+      	                     layer.close(index);
+      	                  
+      	                 },
+      	                 error:function(){
+      	                     layer.alert('操作失败！！！',{icon:5});
+      	                 }
+      	               });
+      	        }
+      	       ,end:function(index){
+      	        	layer.close(index)
+      	        }
+      	      });
+        	 
          } else if(obj.event === 'edit'){
-        	 getCitys(data)
+        	 //下载
+        	 $.ajax({
+	                 url:"<%=basePath%>swork/dowload",
+	                 type:'post',//method请求方式，get或者post
+	                 dataType:'json',//预期服务器返回的数据类型
+	                 data:JSON.stringify({id:data.id}),
+	                 contentType: "application/json; charset=utf-8",
+	                 success:function(res){//res为相应体,function为回调函数
+	              	     
+	                     layer.close(index);
+	                  
+	                 },
+	                 error:function(){
+	                     layer.alert('操作失败！！！',{icon:5});
+	                 }
+	               });
+        	 
          }
        });
      

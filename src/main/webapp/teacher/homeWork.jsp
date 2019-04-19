@@ -14,28 +14,28 @@
 </head>
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
-          <form class="layui-form layui-form-pane" method="post" enctype="multipart/form-data" style="padding:20px;" action="">
+          <form class="layui-form layui-form-pane" method="post" enctype="multipart/form-data" style="padding:20px;" action="<%=basePath%>twork/add" onsubmit="return toVaild()">
             <div class="layui-form-item">
               <label class="layui-form-label">输入标题</label>
                 <div class="layui-input-block">
-                  <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                  <input type="text" id="title" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
                 </div>
            </div>
           
            <div class="layui-form-item">
             <label class="layui-form-label">选择文件</label>
             <div class="layui-input-inline">
-              <input type="file" name="file" lay-verify="required"  class="layui-input">
+              <input type="file"  id="file" name="files" lay-verify="required"  class="layui-input">
             </div>
            </div>
           <div class="layui-form-item layui-form-text">
              <label class="layui-form-label">简介</label>
              <div class="layui-input-block">
-                <textarea placeholder="请输入简介内容"  lay-verify="required" name="content" class="layui-textarea"></textarea>
+                <textarea  id="content" placeholder="请输入简介内容"  lay-verify="required" name="content" class="layui-textarea"></textarea>
              </div>
           </div>
           <div class="layui-form-item">
-             <button class="layui-btn" lay-submit="" lay-filter="upload">提交</button>
+             <button class="layui-btn" type="submit">提交</button>
            </div>
       </form>
      </div>
@@ -72,8 +72,18 @@
     </script>
    
     <script>
+    function toVaild(){
+    	var title = document.getElementById("title").value;
+        var file = document.getElementById("file").value;
+        var content = document.getElementById("content").value;
+        if(!title||!file||!content){
+        	 alert('请完善信息')
+        	 return false
+        }
+        return true          
+    	                 
+    }
   layui.use('table', function(){
-    
      var table = layui.table,form = layui.form,$=layui.$;
        //展示已知数据
        table.render({
@@ -102,7 +112,6 @@
   	        ,area: ['600px','400px']
   	        ,shade: 0.8
   	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-  	        ,btn: ['确定']
   	        ,btnAlign: 'c'
   	        ,moveType: 1 //拖拽模式，0或者1
   	        ,content: $("#box"),

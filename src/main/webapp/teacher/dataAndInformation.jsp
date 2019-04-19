@@ -14,11 +14,11 @@
 </head>
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
-          <form  method="post" enctype="multipart/form-data" style="padding:20px;" action="<%=basePath%>material/add">
-                <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">  
-                <input type="file" name="file" lay-verify="required"  class="layui-input">
-                <input type="file" name="file" lay-verify="required"  class="layui-input">
-                <textarea placeholder="请输入简介内容"  lay-verify="required" name="introduction" class="layui-textarea"></textarea>
+          <form  method="post" enctype="multipart/form-data" style="padding:20px;" action="<%=basePath%>material/add" onsubmit="return toVaild()">
+                <input type="text" id="title" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">  
+                <input type="file" id="img" name="file" lay-verify="required"  class="layui-input">
+                <input type="file" id="file" name="file" lay-verify="required"  class="layui-input">
+                <textarea placeholder="请输入简介内容" id="introduction"  lay-verify="required" name="introduction" class="layui-textarea"></textarea>
            <div >
              <button class="layui-btn layui-btn-sm"  type="submit">提交</button>
            </div>
@@ -57,7 +57,20 @@
     </script>
    
     <script>
-  layui.use('table', function(){
+    function toVaild(){
+    	var title = document.getElementById("title").value;
+        var file = document.getElementById("file").value;
+        var img = document.getElementById("img").value;
+        var introduction = document.getElementById("introduction").value;
+        if(!title||!file||!img||!introduction){
+        	 alert('请完善信息')
+        	 return false
+        }
+        return true          
+    	                 
+    }
+   
+    layui.use('table', function(){
     
      var table = layui.table,form = layui.form,$=layui.$;
        //展示已知数据
@@ -126,6 +139,7 @@
                    success:function(res){//res为相应体,function为回调函数
                 	   obj.del();
                        layer.close(index);
+                       $(".layui-laypage-btn")[0].click();
                     
                    },
                    error:function(){
