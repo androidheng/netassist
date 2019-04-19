@@ -109,13 +109,13 @@ public class SignController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(String key , int page, int rows  ){
+	public PageResult search(String key , int page, int limit  ){
 		TbSign sign=null;
 		if(!StringUtils.isEmpty(key)) {
 			sign=new TbSign();
 			sign.setSigntime(key);
 		}
-		return signService.findPage(sign, page, rows);		
+		return signService.findPage(sign, page, limit);		
 	}
 	
 }

@@ -107,8 +107,8 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbStudent student, int page, int rows  ){
-		return studentService.findPage(student, page, rows);		
+	public PageResult search(@RequestBody TbStudent student, int page, int limit  ){
+		return studentService.findPage(student, page, limit);		
 	}
 	
 }
