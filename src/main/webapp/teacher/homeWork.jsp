@@ -89,7 +89,7 @@
        table.render({
            elem: '#demo'
           ,toolbar: '#toolbarDemo'
-          ,url:'<%=basePath%>user/search'
+          ,url:'<%=basePath%>twork/search'
           ,cols: [[ //标题栏
              {field: 'city', title: '站点名称', }
             ,{field: 'username', title: '用户名'}
@@ -115,33 +115,7 @@
   	        ,btnAlign: 'c'
   	        ,moveType: 1 //拖拽模式，0或者1
   	        ,content: $("#box"),
-  	         yes:function(index){
-  	        	let parames = {
-  	        		username:$('#userName').val(),
-  	        		password:$('#password').val(),
-  	        		cid:$("#cid").val()
-  	        	}
-  	        	data&&(parames.id=data.id);
-  	        	
-  	        	 $.ajax({
-  	                   url:"<%=basePath%>user/addOrUpdate",
-  	                   type:'post',//method请求方式，get或者post
-  	                   dataType:'json',//预期服务器返回的数据类型
-  	                   data:JSON.stringify(parames),
-  	                   contentType: "application/json; charset=utf-8",
-  	                   success:function(res){//res为相应体,function为回调函数
-  	                	   if(res.success){
-  	                		   layer.close(index);
-  	                		  $(".layui-laypage-btn")[0].click();
-  	                		 }else{
-  	                		   layer.alert('操作失败！！！',{icon:5});
-  	                	   }
-  	                    },
-  	                   error:function(){
-  	                       layer.alert('操作失败！！！',{icon:5});
-  	                   }
-  	            });
-  	        },success:function(){
+  	        success:function(){
   	        	
   	        	
   	        }
@@ -167,7 +141,7 @@
          if(obj.event === 'del'){
            layer.confirm('真的删除行么', function(index){
         	  $.ajax({
-                   url:"<%=basePath%>user/delete",
+                   url:"<%=basePath%>twork/delete",
                    type:'post',//method请求方式，get或者post
                    dataType:'json',//预期服务器返回的数据类型
                    data:JSON.stringify({id:data.id}),
@@ -175,7 +149,7 @@
                    success:function(res){//res为相应体,function为回调函数
                 	   obj.del();
                        layer.close(index);
-                    
+                       $(".layui-laypage-btn")[0].click();
                    },
                    error:function(){
                        layer.alert('操作失败！！！',{icon:5});

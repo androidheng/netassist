@@ -63,7 +63,7 @@
    //方法级渲染
      table.render({
        elem: '#LAY_table_user'
-       ,url: '/demo/table/user/'
+       ,url: '<%=basePath%>swork/search'
        ,cols: [[
          ,{field:'username', title: '用户名', width:80}
          ,{field:'sex', title: '性别', width:80, sort: true}
