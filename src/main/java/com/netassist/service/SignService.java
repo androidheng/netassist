@@ -57,5 +57,8 @@ public interface SignService {
 	 * @return
 	 */
 	public PageResult findPage(TbSign sign, int pageNum,int pageSize);
+
+
+	public boolean findHasSign(TbSign sign);
 	
 }

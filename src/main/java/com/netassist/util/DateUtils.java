@@ -10,4 +10,9 @@ public class DateUtils {
 		 String str = format.format(new Date()); 
 		 return str;
 	}
+	public static String getCurrentDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+		String str = format.format(new Date()); 
+		return str;
+	}
 }

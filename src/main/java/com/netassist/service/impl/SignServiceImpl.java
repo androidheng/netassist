@@ -93,5 +93,20 @@ public class SignServiceImpl implements SignService {
 		Page<TbSign> page= (Page<TbSign>)signMapper.selectByExample(example);		
 		return new PageResult(0,"",page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public boolean findHasSign(TbSign sign) {
+			TbSignExample example=new TbSignExample();
+			Criteria criteria = example.createCriteria();
+			
+			if(sign!=null){			
+				criteria.andSigntimeEqualTo(sign.getSigntime());	
+				criteria.andSidEqualTo(sign.getSid());
+			}
+			List<TbSign> list = signMapper.selectByExample(example);
+			if(list.size()>0)
+				return true;
+			return false;
+		}
 	
 }
