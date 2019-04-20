@@ -67,7 +67,7 @@ public class SworkController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public String add( TbSwork swork,@RequestParam("file") MultipartFile file,HttpSession session,HttpServletRequest request){
+	public String add( TbSwork swork,@RequestParam("files") MultipartFile file,HttpSession session,HttpServletRequest request){
 		try {
 			TbStudent tbStudent=(TbStudent) session.getAttribute("student");
 			if(tbStudent!=null) {
@@ -83,7 +83,7 @@ public class SworkController {
 				                    // 项目在容器中实际发布运行的根路径
 				                    String realPath=request.getSession().getServletContext().getRealPath("upload/");
 				                    // 自定义的文件名称
-				                    String trueFileName=fileName.substring(fileName.indexOf("."));
+				                    String trueFileName=String.valueOf(System.currentTimeMillis())+fileName.substring(fileName.indexOf("."));
 				                    swork.setFile("http://127.0.0.1:8080/upload/"+trueFileName);
 				                    
 				                    // 设置存放图片文件的路径
@@ -202,9 +202,9 @@ public class SworkController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer  id){
+	public Result delete(@RequestBody TbSwork swork){
 		try {
-			sworkService.delete(id);
+			sworkService.delete(swork.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -225,7 +225,7 @@ public class SworkController {
 		TbSwork swork=null;
 		if(!StringUtils.isEmpty(key)) {
 			swork=new TbSwork();
-			swork.setTid(Integer.parseInt(key));
+			swork.setTtid(Integer.parseInt(key));
 		}
 		PageResult result = sworkService.findPage(swork, page, limit);
 		List<TbSwork> list = result.getData();
@@ -245,7 +245,7 @@ public class SworkController {
 		if(tbStudent!=null) {
 			TbSwork swork=new TbSwork();
 			if(!StringUtils.isEmpty(key)) {
-				swork.setTid(Integer.parseInt(key));
+				swork.setTtid(Integer.parseInt(key));
 			}
 			PageResult result = sworkService.findPage(swork, page, limit);
 			List<TbSwork> list = result.getData();

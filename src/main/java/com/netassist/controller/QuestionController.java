@@ -14,6 +14,7 @@ import com.netassist.pojo.TbStudent;
 import com.netassist.pojo.TbTeacher;
 import com.netassist.service.QuestionService;
 import com.netassist.service.TeacherService;
+import com.netassist.util.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -61,6 +62,7 @@ public class QuestionController {
 			TbStudent loginStudent=(TbStudent) session.getAttribute("student");
 			if(loginStudent!=null) {
 				question.setSid(loginStudent.getId());
+				question.setCreatetime(DateUtils.getCurrent());
 				questionService.add(question);
 				return new Result(true, "提问成功");	
 			}else {

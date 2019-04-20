@@ -91,7 +91,7 @@ public class TworkController {
 				                    // 项目在容器中实际发布运行的根路径
 				                    String realPath=request.getSession().getServletContext().getRealPath("upload/");
 				                    // 自定义的文件名称
-				                    String trueFileName=fileName.substring(fileName.indexOf("."));
+				                    String trueFileName=String.valueOf(System.currentTimeMillis())+fileName.substring(fileName.indexOf("."));
 				                    twork.setFile("http://127.0.0.1:8080/upload/"+trueFileName);
 				                    
 				                    // 设置存放图片文件的路径

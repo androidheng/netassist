@@ -13,6 +13,7 @@ import com.netassist.pojo.TbSign;
 import com.netassist.pojo.TbStudent;
 import com.netassist.service.SignService;
 import com.netassist.service.StudentService;
+import com.netassist.util.DateUtils;
 
 import entity.PageResult;
 import entity.Result;
@@ -55,13 +56,22 @@ public class SignController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbSign sign,HttpSession session){
+	public Result add(HttpSession session){
 		try {
 			TbStudent student=(TbStudent) session.getAttribute("student");
 			if(student!=null) {
+				TbSign sign=new TbSign();
+				sign.setSigntime(DateUtils.getCurrentDate());
 				sign.setSid(student.getId());
-				signService.add(sign);
-				return new Result(true, "签到成功");
+				boolean hasSign=signService.findHasSign(sign);
+				if(hasSign) {
+					return new Result(false, "今日已签到");
+				}else {
+					signService.add(sign);
+					return new Result(true, "签到成功");
+				}
+				
+				
 			}else {
 				return new Result(false, "请先登录");
 			}
