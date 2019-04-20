@@ -48,9 +48,8 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>站长信息</a>
+                  <a>问题信息</a>
                 </span>
-                <h2 class="title">资料信息</h2>
             </div>
         </div>
         <div class="layui-row">

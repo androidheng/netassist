@@ -15,26 +15,12 @@
 <body class="layui-view-body">
      <div class="layui-content" id="box" style="display:none">
         <div class="layui-form" style="padding:10px 0px;background:#fff;margin-top:50px;"></form>
-            <div class="layui-form-item">
-              <label class="layui-form-label">站长用户名</label>
-              <div class="layui-input-block">
-                 <input id='userName' name="username" type="text" value="">
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">站长密码</label>
-              <div class="layui-input-block">
-                 <input id='password' name="password" type="password" value="">
-              </div>
-            </div>
-            <div class="layui-form-item">
-              <label class="layui-form-label">站长所属站点</label>
-              <div class="layui-input-block">
-                   <select name="cid" id="cid" lay-verify="city" lay-filter="cityList">
-                    
-                  </select>
-              </div>
-            </div>
+            <div class="layui-form-item layui-form-text">
+                   <label class="layui-form-label">请输入您的问题</label>
+                   <div class="layui-input-block">
+                      <textarea placeholder="请输入您的问题" id="answer"  lay-verify="required" name="answer" class="layui-textarea"></textarea>
+                  </div>
+               </div>
         </div>	
      </div>
     <div class="layui-content">
@@ -42,9 +28,9 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>作业信息</a>
+                  <a>学生提问</a>
                 </span>
-                <h2 class="title">作业信息</h2>
+                
             </div>
         </div>
         <div class="layui-row">
@@ -67,28 +53,23 @@
    </div>
     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
     <script type="text/html" id="barDemo">
-       <a class="layui-btn layui-btn-xs" lay-event="edit">下载</a>
-       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">评分</a>
+       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="answer">回复</a>
     </script>
    
     <script>
   layui.use('table', function(){
-    
-     var table = layui.table,form = layui.form,$=layui.$;
-   
-   //方法级渲染
+    var table = layui.table,form = layui.form,$=layui.$;
+    //方法级渲染
      table.render({
        elem: '#LAY_table_user'
        ,url: '<%=basePath%>question/search'
        ,cols: [[
-         ,{field:'username', title: '用户名', width:80}
-         ,{field:'sex', title: '性别', width:80, sort: true}
-         ,{field:'city', title: '城市', width:80}
-         ,{field:'sign', title: '签名'}
-         ,{field:'experience', title: '积分', sort: true, width:80}
-         ,{field:'score', title: '评分', sort: true, width:80}
-         ,{field:'classify', title: '职业', width:80}
-         ,{field:'wealth', title: '财富', sort: true, width:135}
+         ,{field:'realname', title: '学生姓名', }
+         ,{field:'phone', title: '学生电话'}
+         ,{field:'question', title: '问题内容'}
+         ,{field:'status', title: '是否已回答'}
+         ,{field:'replytime', title: '回复时间',  sort: true}
+         ,{field:'answer', title: '回复内容', }
          ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
        ]]
        ,id: 'testReload'
@@ -107,9 +88,7 @@
              curr: 1 //重新从第 1 页开始
            }
            ,where: {
-             key: {
-            	 key: demoReload.val(),
-             }
+             key:demoReload.val(),
            }
          });
        }
@@ -121,30 +100,51 @@
      });
       
        //监听行工具事件
-       table.on('tool(demo)', function(obj){
+       table.on('tool(user)', function(obj){
          var data = obj.data;
         
-         if(obj.event === 'del'){
-           layer.confirm('真的删除行么', function(index){
-        	  $.ajax({
-                   url:"<%=basePath%>user/delete",
-                   type:'post',//method请求方式，get或者post
-                   dataType:'json',//预期服务器返回的数据类型
-                   data:JSON.stringify({id:data.id}),
-                   contentType: "application/json; charset=utf-8",
-                   success:function(res){//res为相应体,function为回调函数
-                	   obj.del();
-                       layer.close(index);
-                   },
-                   error:function(){
-                       layer.alert('操作失败！！！',{icon:5});
-                   }
-                 });
+         if(obj.event === 'answer'){
+        	 layer.open({
+      	         type: 1
+      	        ,title: false //不显示标题栏
+      	        ,closeBtn: true
+      	        ,area: ['600px','400px']
+      	        ,shade: 0.8
+      	        ,btn:['确定']
+      	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+      	        ,btnAlign: 'c'
+      	        ,moveType: 1 //拖拽模式，0或者1
+      	        ,content: $("#box"),
+      	        success:function(){
+      	        	
+      	        	
+      	        }
+        	   ,yes:function(index){
+        		   let answer = $("#answer").val()
+                   if(!answer) return layer.alert('请填写回复内容')
+             	   $.ajax({
+                        url:"<%=basePath%>question/answer",
+                        type:'post',//method请求方式，get或者post
+                        dataType:'json',//预期服务器返回的数据类型
+                        data:JSON.stringify({id:data.id,answer:answer}),
+                        contentType: "application/json; charset=utf-8",
+                        success:function(res){//res为相应体,function为回调函数
+                     	  layer.close(index);
+                     	 $(".layui-laypage-btn")[0].click();
+                        },
+                        error:function(){
+                            layer.alert('操作失败！！！',{icon:5});
+                        }
+                      });
+        	   }
+      	       ,end:function(index){
+      	        	layer.close(index)
+      	        }
+      	      });
+             
            
-           });
-         } else if(obj.event === 'edit'){
-        	 getCitys(data)
-         }
+         
+         } 
        });
      
 });

@@ -50,9 +50,9 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>站长信息</a>
+                  <a>作业信息</a>
                 </span>
-                <h2 class="title">资料信息</h2>
+                
             </div>
         </div>
         <div class="layui-row">
@@ -61,7 +61,9 @@
                      <div class="demoTable">
                                                                              作业次数：
                       <div class="layui-inline">
-                          <select name="ttid" id="demoReload" ></select>
+                        <form class="layui-form" action="">
+                           <select name="ttid" id="demoReload" ></select>
+                       </form>
                       </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                     </div>
@@ -118,7 +120,7 @@
                success:function(res){//res为相应体,function为回调函数
               	  let options = "<option value=''></option>"
                    res.data.forEach(item=>{
-                  	 options+="<option value='" + item.tid + "'>" + item.title + "</option>";
+                  	 options+="<option value='" + item.id + "'>" + item.title + "</option>";
                    })
                   
                    $("#"+id).append(options)
@@ -161,9 +163,7 @@
     	             curr: 1 //重新从第 1 页开始
     	           }
     	           ,where: {
-    	             key: {
-    	               id: demoReload.val()
-    	             }
+    	             key: demoReload.val()
     	           }
     	         });
     	       }

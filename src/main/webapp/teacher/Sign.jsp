@@ -25,16 +25,16 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>作业信息</a>
+                  <a>学生签到信息</a>
                 </span>
-                <h2 class="title">作业信息</h2>
+              
             </div>
         </div>
         <div class="layui-row">
             <div class="layui-card">
                 <div class="layui-card-body">
                    <div class="demoTable">
-                                                                             学生名称：
+                                                                             学生姓名：
                       <div class="layui-inline">
                           <input class="layui-input" name="id" id="demoReload" autocomplete="off">
                       </div>
@@ -52,10 +52,7 @@
     </div>
    </div>
    <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
-    <script type="text/html" id="barDemo">
-       <a class="layui-btn layui-btn-xs" lay-event="edit">下载</a>
-       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">评分</a>
-    </script>
+   
    
     <script>
        layui.use('laydate', function(){
@@ -74,15 +71,8 @@
        elem: '#LAY_table_user'
        ,url: '<%=basePath%>sign/search'
        ,cols: [[
-         ,{field:'username', title: '用户名', width:80}
-         ,{field:'sex', title: '性别', width:80, sort: true}
-         ,{field:'city', title: '城市', width:80}
-         ,{field:'sign', title: '签名'}
-         ,{field:'experience', title: '积分', sort: true, width:80}
-         ,{field:'score', title: '评分', sort: true, width:80}
-         ,{field:'classify', title: '职业', width:80}
-         ,{field:'wealth', title: '财富', sort: true, width:135}
-         ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+         ,{field:'signtime', title: '签到时间'}
+        
        ]]
        ,id: 'testReload'
        ,page: true
@@ -100,10 +90,10 @@
              curr: 1 //重新从第 1 页开始
            }
            ,where: {
-             key: {
+            
                id: demoReload.val(),
                dates: dates.val(),
-             }
+            
            }
          });
        }
@@ -129,6 +119,7 @@
                    success:function(res){//res为相应体,function为回调函数
                 	   obj.del();
                        layer.close(index);
+                       $(".layui-laypage-btn")[0].click();
                     
                    },
                    error:function(){

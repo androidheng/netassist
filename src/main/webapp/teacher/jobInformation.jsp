@@ -37,9 +37,12 @@
             <div class="layui-card">
                 <div class="layui-card-body">
                    <div class="demoTable">
-                                                                             作业名称：
+                                                                             作业次数：
                       <div class="layui-inline">
-                          <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                         <form class="layui-form" action="">
+                            <select name="id" id="demoReload" ></select>
+                         </form>
+                       
                       </div>
                       <button class="layui-btn" data-type="reload">查询</button>
                    </div>
@@ -52,27 +55,56 @@
    </div>
     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
     <script type="text/html" id="barDemo">
-       <a class="layui-btn layui-btn-xs" lay-event="edit">下载</a>
-       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">评分</a>
+       <a class="layui-btn layui-btn-xs" lay-event="doneLoad">下载</a>
+       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="score">评分</a>
     </script>
    
     <script>
   layui.use('table', function(){
     
      var table = layui.table,form = layui.form,$=layui.$,layer=layui.layer;
+   //重新渲染表单
+     function renderForm(){
+      layui.use('form', function(){
+      var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+      form.render();
+      });
+      }
+     getoption('demoReload')
+     
+     //获取下拉列表数据
+     function getoption(id){
+        $.ajax({
+            url:"<%=basePath%>twork/findYAll ",
+            type:'post',//method请求方式，get或者post
+            dataType:'json',//预期服务器返回的数据类型
+            contentType: "application/json; charset=utf-8",
+            success:function(res){//res为相应体,function为回调函数
+           	  let options = "<option value=''></option>"
+                res.data.forEach(item=>{
+               	 options+="<option value='" + item.id + "'>" + item.title + "</option>";
+                })
+               
+                $("#"+id).append(options)
+             
+                renderForm()
+            },
+            error:function(){
+              layer.alert('操作失败！！！',{icon:5});
+            }
+          });
+     }
+ 
+ 
    //方法级渲染
      table.render({
        elem: '#LAY_table_user'
        ,url: '<%=basePath%>swork/search'
        ,cols: [[
-         ,{field:'username', title: '用户名', width:80}
-         ,{field:'sex', title: '性别', width:80, sort: true}
-         ,{field:'city', title: '城市', width:80}
-         ,{field:'sign', title: '签名'}
-         ,{field:'experience', title: '积分', sort: true, width:80}
-         ,{field:'score', title: '评分', sort: true, width:80}
-         ,{field:'classify', title: '职业', width:80}
-         ,{field:'wealth', title: '财富', sort: true, width:135}
+    	    {field: 'title', title: '作业标题', }
+           ,{field: 'content', title: '作业内容'}
+           ,{field: 'teachername', title: '老师名'}
+           ,{field: 'createtime', title: '创建时间'}
          ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
        ]]
        ,id: 'testReload'
@@ -90,9 +122,7 @@
              curr: 1 //重新从第 1 页开始
            }
            ,where: {
-             key: {
-               id: demoReload.val()
-             }
+             key:demoReload.val()
            }
          });
        }
@@ -106,8 +136,8 @@
        //监听行工具事件
        table.on('tool(demo)', function(obj){
          var data = obj.data;
-         //console.log(obj)
-         if(obj.event === 'del'){
+         //打分
+         if(obj.event === 'score'){
         	 layer.open({
       	         type: 1
       	        ,title: false //不显示标题栏
@@ -123,7 +153,7 @@
       	        	
       	        	
       	        },
-      	        yes:function(){
+      	        yes:function(index){
       	        	$.ajax({
       	                 url:"<%=basePath%>swork/score",
       	                 type:'post',//method请求方式，get或者post
@@ -131,9 +161,8 @@
       	                 data:JSON.stringify({id:data.id,score:$("#score").val()}),
       	                 contentType: "application/json; charset=utf-8",
       	                 success:function(res){//res为相应体,function为回调函数
-      	              	     
-      	                     layer.close(index);
-      	                  
+      	              	      layer.close(index);
+      	              	      $(".layui-laypage-btn")[0].click();
       	                 },
       	                 error:function(){
       	                     layer.alert('操作失败！！！',{icon:5});
@@ -145,7 +174,7 @@
       	        }
       	      });
         	 
-         } else if(obj.event === 'edit'){
+         } else if(obj.event === 'doneLoad'){
         	 //下载
         	 $.ajax({
 	                 url:"<%=basePath%>swork/dowload",
@@ -154,9 +183,7 @@
 	                 data:JSON.stringify({id:data.id}),
 	                 contentType: "application/json; charset=utf-8",
 	                 success:function(res){//res为相应体,function为回调函数
-	              	     
-	                     layer.close(index);
-	                  
+	              	     //layer.close(index);
 	                 },
 	                 error:function(){
 	                     layer.alert('操作失败！！！',{icon:5});
