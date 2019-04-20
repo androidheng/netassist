@@ -1,6 +1,8 @@
 package com.netassist.controller;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.netassist.pojo.TbSign;
+import com.netassist.pojo.TbStudent;
 import com.netassist.service.SignService;
+import com.netassist.service.StudentService;
 
 import entity.PageResult;
 import entity.Result;
@@ -23,6 +27,8 @@ public class SignController {
 
 	@Autowired
 	private SignService signService;
+	@Autowired
+	private StudentService studentService;
 	
 	/**
 	 * 返回全部列表
@@ -49,10 +55,17 @@ public class SignController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbSign sign){
+	public Result add(@RequestBody TbSign sign,HttpSession session){
 		try {
-			signService.add(sign);
-			return new Result(true, "增加成功");
+			TbStudent student=(TbStudent) session.getAttribute("student");
+			if(student!=null) {
+				sign.setSid(student.getId());
+				signService.add(sign);
+				return new Result(true, "签到成功");
+			}else {
+				return new Result(false, "请先登录");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "增加失败");
@@ -115,7 +128,12 @@ public class SignController {
 			sign=new TbSign();
 			sign.setSigntime(key);
 		}
-		return signService.findPage(sign, page, limit);		
+		PageResult result = signService.findPage(sign, page, limit);	
+		List<TbSign> list = result.getData();
+		for (TbSign tbSign : list) {
+			tbSign.setStuname(studentService.findOne(tbSign.getSid()).getUsername());
+		}
+		return 	result;
 	}
 	
 }
