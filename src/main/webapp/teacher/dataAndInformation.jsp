@@ -16,8 +16,8 @@
      <div class="layui-content" id="box" style="display:none">
           <form  method="post" enctype="multipart/form-data" style="padding:20px;" action="<%=basePath%>material/add" onsubmit="return toVaild()">
                 <input type="text" id="title" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">  
-                <input type="file" id="img" name="files" lay-verify="required"  class="layui-input">
-                <input type="file" id="file" name="files" lay-verify="required"  class="layui-input">
+                <input type="file" id="img" name="files" accept="image/gif, image/jpeg,image/png" lay-verify="required"  class="layui-input">
+                <input type="file" id="file" name="files" accept="application/pdf,application/msword" lay-verify="required"  class="layui-input">
                 <textarea placeholder="请输入简介内容" id="introduction"  lay-verify="required" name="introduction" class="layui-textarea"></textarea>
            <div >
              <button class="layui-btn layui-btn-sm"  type="submit">提交</button>
