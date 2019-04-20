@@ -72,10 +72,8 @@ public class SworkServiceImpl implements SworkService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			sworkMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		sworkMapper.deleteByPrimaryKey(id);
 	}
 	
 	

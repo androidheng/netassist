@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
 import com.netassist.pojo.TbStudent;
@@ -29,7 +31,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/swork")
 public class SworkController {
 
@@ -65,7 +67,7 @@ public class SworkController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add( TbSwork swork,@RequestParam("file") MultipartFile file,HttpSession session,HttpServletRequest request){
+	public String add( TbSwork swork,@RequestParam("file") MultipartFile file,HttpSession session,HttpServletRequest request){
 		try {
 			TbStudent tbStudent=(TbStudent) session.getAttribute("student");
 			if(tbStudent!=null) {
@@ -99,7 +101,7 @@ public class SworkController {
 				                    System.out.println("文件成功上传到指定目录下");
 				                }else {
 				                    System.out.println("不是我们想要的文件类型,请按要求重新上传");
-				                    return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
+				                   // return new Result(false, "不是我们想要的文件类型,请按要求重新上传");
 				                }
 			                
 			            }else {
@@ -113,15 +115,13 @@ public class SworkController {
 			swork.setSid(tbStudent.getId());
 			swork.setCommittime(DateUtils.getCurrent());
 			sworkService.add(swork);
-			return new Result(true, "提交作业成功");
 			}else {
-				return new Result(false, "请先登录");
 			}
 			
 			}catch (Exception e) {
 			e.printStackTrace();
-			return new Result(false, "添加失败");
 		}
+		return "redirect:/student/sworklList";
 	}
 	
 	/**
@@ -144,6 +144,7 @@ public class SworkController {
 	 * @param swork
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/dowload")
 	public Result dowload(@RequestBody TbSwork swork){
 		try {
@@ -160,6 +161,7 @@ public class SworkController {
 	 * @param swork
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/score")
 	public Result score(@RequestBody TbSwork swork,HttpSession session){
 		try {
@@ -198,10 +200,11 @@ public class SworkController {
 	 * @param ids
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(Integer  id){
 		try {
-			sworkService.delete(ids);
+			sworkService.delete(id);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();

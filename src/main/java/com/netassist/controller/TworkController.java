@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
 import com.netassist.pojo.TbMaterial;
@@ -28,7 +30,7 @@ import entity.Result;
  * @author Administrator
  *
  */
-@RestController
+@Controller
 @RequestMapping("/twork")
 public class TworkController {
 
@@ -40,10 +42,12 @@ public class TworkController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbTwork> findAll(){			
 		return tworkService.findAll();
 	}
+	@ResponseBody
 	@RequestMapping("/findYAll")
 	public Result findYAll(){			
 		List<TbTwork> list=tworkService.findNAll();
@@ -54,6 +58,7 @@ public class TworkController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findPage")
 	public PageResult  findPage(int page,int rows){			
 		return tworkService.findPage(page, rows);
@@ -115,6 +120,7 @@ public class TworkController {
 	          
 			
 			} 
+			twork.setTid(tbTeacher.getId());	
 			twork.setCreatetime(DateUtils.getCurrent());
 			tworkService.add(twork);
 			//return new Result(true, "添加成功");
@@ -134,6 +140,7 @@ public class TworkController {
 	 * @param twork
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/update")
 	public Result update(@RequestBody TbTwork twork){
 		try {
@@ -150,6 +157,7 @@ public class TworkController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findOne")
 	public TbTwork findOne(Integer id){
 		return tworkService.findOne(id);		
@@ -160,6 +168,7 @@ public class TworkController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/delete")
 	public Result delete(@RequestBody TbTwork twork){
 		try {
@@ -178,6 +187,7 @@ public class TworkController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbTwork twork=null;

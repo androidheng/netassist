@@ -46,9 +46,9 @@ public interface SworkService {
 	
 	/**
 	 * 批量删除
-	 * @param ids
+	 * @param id
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页
