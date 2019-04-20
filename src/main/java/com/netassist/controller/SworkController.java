@@ -219,6 +219,7 @@ public class SworkController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
 	public PageResult search(String key , int page, int limit  ){
 		TbSwork swork=null;
@@ -237,7 +238,7 @@ public class SworkController {
 		}
 		return 	result;
 	}
-	
+	@ResponseBody
 	@RequestMapping("/myWork")
 	public PageResult myWork(String key , int page, int limit,HttpSession session  ){
 		TbStudent tbStudent=(TbStudent) session.getAttribute("student");
