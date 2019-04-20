@@ -119,11 +119,16 @@
                  url:"<%=basePath%>sign/add",
                  type:'post',//method请求方式，get或者post
                  dataType:'json',//预期服务器返回的数据类型
-                 data:JSON.stringify({"signtime":getNowFormatDate()}),
                  contentType: "application/json; charset=utf-8",
                  success:function(res){//res为相应体,function为回调函数
-              	  
-                     $(".layui-laypage-btn")[0].click();
+                	 
+              	  	if(res.success){
+              	  	layer.alert(res.message,{icon:1});
+              	  	 $(".layui-laypage-btn")[0].click();
+              	  	}else{
+              	  	 layer.alert(res.message,{icon:5});
+              	  	}
+                    
                   
                  },
                  error:function(){

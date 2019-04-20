@@ -25,7 +25,7 @@
            <div class="layui-form-item">
             <label class="layui-form-label">选择文件</label>
             <div class="layui-input-inline">
-              <input type="file"  id="file" name="file" lay-verify="required"  class="layui-input">
+              <input type="file"  id="file" name="files" lay-verify="required"  class="layui-input">
             </div>
            </div>
           <div class="layui-form-item layui-form-text">
