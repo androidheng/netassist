@@ -19,7 +19,7 @@
               <label class="layui-form-label">输入标题</label>
                 <div class="layui-input-block">
                   <input type="text" id="title" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                </div>
+                </div> 
            </div>
           
            <div class="layui-form-item">
