@@ -42,7 +42,7 @@
                 <ul id="Nav" class="layui-nav layui-nav-tree">
 
  					<li class="layui-nav-item">
-                         <a href="<%=basePath%>student/login.jsp">
+                         <a href="<%=basePath%>student/homeWork.jsp">
                                <i class="layui-icon">&#xe62a;</i>
                                <em>我的作业</em>
                          </a>

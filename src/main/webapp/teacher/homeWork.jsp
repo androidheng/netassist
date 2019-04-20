@@ -91,8 +91,10 @@
           ,toolbar: '#toolbarDemo'
           ,url:'<%=basePath%>twork/search'
           ,cols: [[ //标题栏
-             {field: 'city', title: '站点名称', }
-            ,{field: 'username', title: '用户名'}
+             {field: 'title', title: '作业标题', }
+            ,{field: 'content', title: '作业内容'}
+            ,{field: 'teachername', title: '老师名'}
+            ,{field: 'createtime', title: '创建时间'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,skin: 'line' //表格风格

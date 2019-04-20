@@ -39,10 +39,10 @@
                    <div class="demoTable">
                                                                              作业名称：
                       <div class="layui-inline">
-                      <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                          <input class="layui-input" name="id" id="demoReload" autocomplete="off">
                       </div>
-                       <button class="layui-btn" data-type="reload">查询</button>
-                     </div>
+                      <button class="layui-btn" data-type="reload">查询</button>
+                   </div>
  
                      <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
                 </div>
