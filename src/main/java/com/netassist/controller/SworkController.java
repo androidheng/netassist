@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
@@ -146,15 +151,30 @@ public class SworkController {
 	 */
 	@ResponseBody
 	@RequestMapping("/dowload")
-	public Result dowload(@RequestBody TbSwork swork){
+	public ResponseEntity<byte[]> dowload(@RequestBody TbSwork swork){
 		try {
 			swork.setIsdowload("Y");
 			sworkService.update(swork);
-			return new Result(true, "下载成功");
+			TbSwork tbSwork = sworkService.findOne(swork.getId());
+			String downloadFilePath=tbSwork.getFile();//从我们的上传文件夹中去取
+	        
+	        File file = new File(downloadFilePath);//新建一个文件
+	        
+	        HttpHeaders headers = new HttpHeaders();//http头信息
+	        
+	        String downloadFileName = new String(downloadFilePath.getBytes("UTF-8"),"iso-8859-1");//设置编码
+	        
+	        headers.setContentDispositionFormData("attachment", downloadFileName);
+	        
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	        
+	        //MediaType:互联网媒介类型  contentType：具体请求中的媒体类型信息
+	        
+	        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),headers,HttpStatus.CREATED);	
 		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "下载失败");
+			
 		}
+		return null;	
 	}	
 	/**
 	 * 分数
@@ -165,10 +185,10 @@ public class SworkController {
 	@RequestMapping("/score")
 	public Result score(@RequestBody TbSwork swork,HttpSession session){
 		try {
-			TbStudent tbStudent=(TbStudent) session.getAttribute("student");
-			if(tbStudent!=null) {
+			TbTeacher tbTeacher=(TbTeacher) session.getAttribute("teacher");
+			if(tbTeacher!=null) {
 				if(sworkService.findOne(swork.getId()).getIsdowload().equals("Y")) {
-					swork.setTid(tbStudent.getId());
+					swork.setTid(tbTeacher.getId());
 					sworkService.update(swork);
 					return new Result(true, "批改成功");
 				}else {
