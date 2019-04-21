@@ -48,7 +48,7 @@ public interface QuestionService {
 	 * 批量删除
 	 * @param ids
 	 */
-	public void delete(Integer [] ids);
+	public void delete(Integer  id);
 
 	/**
 	 * 分页
