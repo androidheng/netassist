@@ -72,10 +72,8 @@ public class QuestionServiceImpl implements QuestionService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			questionMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		questionMapper.deleteByPrimaryKey(id);
 	}
 	
 	
