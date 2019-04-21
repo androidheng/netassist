@@ -44,7 +44,7 @@
             <div class="pagewrap">
                 <span class="layui-breadcrumb">
                   <a>首页</a>
-                  <a>站长信息</a>
+                 
                 </span>
                 <h2 class="title">作业信息</h2>
             </div>
@@ -69,6 +69,7 @@
     <script type="text/html" id="barDemo">
       
        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="over">结束本次作业</a>
     </script>
    
     <script>
@@ -95,7 +96,7 @@
             ,{field: 'content', title: '作业内容'}
             ,{field: 'teachername', title: '老师名'}
             ,{field: 'createtime', title: '创建时间'}
-            ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+            ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:250}
          ]]
         ,skin: 'line' //表格风格
         ,even: true
@@ -159,6 +160,22 @@
                  });
            
            });
+         }else{
+        	 $.ajax({
+                 url:"<%=basePath%>twork/update",
+                 type:'post',//method请求方式，get或者post
+                 dataType:'json',//预期服务器返回的数据类型
+                 data:JSON.stringify({id:data.id,enable:data.enable}),
+                 contentType: "application/json; charset=utf-8",
+                 success:function(res){//res为相应体,function为回调函数
+                	  layer.alert('操作成功！！！',{icon:5});
+                     $(".layui-laypage-btn")[0].click();
+                 },
+                 error:function(){
+                     layer.alert('操作失败！！！',{icon:5});
+                 }
+               });
+         
          } 
        });
      

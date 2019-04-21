@@ -13,6 +13,45 @@
     <meta name="renderer" content="webkit">
     <link rel="stylesheet" href="<%=basePath%>swiper-master/dist/amazeui.swiper.min.css">
     <link rel="stylesheet" href="<%=basePath%>assets/css/amazeui.min.css">
+    <style type="text/css">
+      .dataImformation{
+        width:1000px;
+        margin:auto;
+        display:flex;
+      }
+      .dataImformation li{
+         padding:80px;
+         box-sizing:border-box;
+         flex:1;
+        
+      }
+       .dataImformation li>div{
+          border:2px solid #999;
+          padding-bottom:5px;
+       }
+      .dataImformation li img{
+        width:345px;
+        height:350px;
+      }
+       .dataImformation li p{
+         padding:0 5px;
+        width:345px;
+        white-space:normal;
+      }
+      .dataImformation li a{
+         display:inline-block;
+         width:100px;
+         line-height:30px;
+         text-align:center;
+         border-radius:15px;
+         background:#999;
+      }
+      .goUpload{
+        width:100%;
+        text-align:center;
+      }
+    
+    </style>
 </head>
 <body>
     <script src="<%=basePath%>assets/js/jquery-3.2.1.min.js"></script>
@@ -38,12 +77,11 @@
           <li><a href="#A2">学生成果展示</a></li>
           <li><a href="#A3">导师风采</a></li>
           <li><a href="#">联系我们</a></li>
-          <li><a href="#">登录</a></li>
+          <li><a href="<%=basePath%>login.jsp">登录</a></li>
         </ul>
       </div>
       <div class="am-g">
           <div class="am-u-sm-12 am-text-right">
-  
               <div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused: 8000}">
                   <ul class="am-slides">
               <li>
@@ -72,36 +110,20 @@
           
             </div>
 <br>
+<ul class="dataImformation" id="dataImformation">
+    <li v-for="item in data">
+        <div>
+           <img :src="item.logo" >
+           <p>{{item.introduction}}学生成果展示学生成果展示学生成果展示学生成果展示学生成果展示学生成果展示学生成果展示学生成果展示</p>
+           <div class="goUpload">
+              <a :href="item.url">去下载</a>
+           </div>
+          
+        </div>
+    </li>
+    
+</ul>
 
-<div class="ba" >
-    <img src="<%=basePath%>images/1511945692206.jpg" width="345px;">
-    <div class="ba-h5">交换机选型及部署指南</div>
-    <div class="ba-h5">思科交换机产品适用各种类型的网络，包括数据中心、核心或边界。</div>
-   
-
-
-    <div class="ba-b"><a href="https://engage2demand.cisco.com/LP=8240" style="color:rgb(8, 8, 8);text-decoration:none;"><br>去下载</a></div>  </div>
-
-<div class="bs">
-    <img src="<%=basePath%>images/1511945710288.jpg" width="345px;">
-    <div class="ba-h5">路由器选型及部署指南</div>
-    <div class="ba-h5">查找适用于任何位置、任何应用的全数字化就绪型安全路由器。</div>
-   
-
-
-    <div class="ba-b"><a href="https://engage2demand.cisco.com/LP=8518" style="color:rgb(8, 8, 8);text-decoration:none;"><br>去下载</a></div>  </div>
-
-</div>
-<div class="bd">
-    <img src="<%=basePath%>images/1511945722900.jpg" width="345px;">
-    <div class="ba-h5">无线选型及部署指南</div>
-    <div class="ba-h5">高速的无线网络，安全的终端接入，为您的客户提供绝佳的访问体验。</div>
-   
-
-
-    <div class="ba-b"><a href="https://engage2demand.cisco.com/LP=8534" style="color:rgb(8, 8, 8);text-decoration:none;"><br>去下载</a></div>  </div>
-
-</div>
 <div class="am-g" >
     <div class="am-u-sm-12 am-text-right ">
       <div class="ac" >
@@ -114,18 +136,18 @@
 <br>
 <div class="am-g">
   <div class="am-u-sm-3">
-<div class="responsive">
+   <div class="responsive">
     <div class="img">
       <a target="_blank" href="#">
         <img src="<%=basePath%>images/实验1.jpg" alt="图片文本描述" width="500" height="200">
       </a>
       <div class="desc">为网络接口配置IP地址、子网掩码、默认网关、DNS服务器IP地址信息。开始配置时与第1部查看的结果是一致的，然后分别试着调整IP地址、子网掩码、默认网关、DNS服务器IP地址信息，观察可能带来些什么问题。
-</div>
-</div>
+      </div>
+    </div>
     </div>
   </div>
   <div class="am-u-sm-3">
-  <div class="responsive">
+   <div class="responsive">
     <div class="img">
       <a target="_blank" href="#">
         <img src="<%=basePath%>images/实验2.jpg" alt="图片文本描述" width="500" height="200">
@@ -326,17 +348,13 @@
               </h>
             </div>
     
-            <input type="text" value="   请输入您的姓名" onfocus="if(value=='   请输入您的姓名')value=''"
-              onblur="if(!value)value='   请输入您的姓名'" name="name" class="fa-c">
+            <input id="userName" type="text" placeholder="请输入您的姓名"  name="name" class="fa-c">
             <br>
-            <input type="text" value="   请输入您的电话" onfocus="if(value=='   请输入您的电话')value=''"
-              onblur="if(!value)value='   请输入您的电话'" name="number" class="fa-c" />
+            <input id="userPhone" type="text" placeholder="请输入您的电话"  name="number" class="fa-c" />
             <br>
-            <textarea cols="50" rows="5" id="textarea" onKeyDown="textdown(event)" onKeyUp="textup()"
-              onfocus="if(value=='   请输入您的问题'){value=''}" onblur="if (value ==''){value='   请输入您的问题'}"
-              class="fa-d">   请输入您的问题</textarea>
+            <textarea id="qustion" placeholder="请输入您的问题" cols="50" rows="5" class="fa-d"></textarea>
     
-            <a href="#"><button class="fa-c-g">提交</button></a>
+            <a ><button onclick="upload()" class="fa-c-g">提交</button></a>
     
     
           </div>
@@ -351,9 +369,11 @@
 
     <script src="<%=basePath%>assets/js/jquery-1.11.0.min.js"></script>
     <script src="<%=basePath%>swiper-master/dist/amazeui.swiper.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
   <script>
 
         $(function () {
+        	
           var a = 4
           var b = 5
           if (window.screen.width < 500) {
@@ -396,7 +416,66 @@
             autoplay: 3000
 
           });
+         
         });
+        function upload(){
+        	let userName = $("#userName").val();
+        	let userPhone = $("#userPhone").val();
+        	let qustion = $("#qustion").val();
+        	let parames = {
+        			userName : userName,	
+        			userPhone : userPhone,	
+        			qustion : qustion,	
+        	}
+      	    if(!userName||!userPhone||!qustion) return alert('请完善信息');
+      	    $.ajax({
+                url:"<%=basePath%>question/add",
+                type:'post',//method请求方式，get或者post
+                dataType:'json',//预期服务器返回的数据类型
+                data:JSON.stringify(parames),
+                contentType: "application/json; charset=utf-8",
+                success:function(res){//res为相应体,function为回调函数
+                   alert('操作成功')
+                 
+                },
+                error:function(){
+                    alert('操作失败！！！');
+                }
+              });
+      	   
+        }
+        let vm = new Vue({
+        	el:'#dataImformation',
+        	data(){
+        		return {
+        			data:[]
+        		}
+        	},
+        	mounted(){
+        		 let self = this
+        		 $.ajax({
+                     url:"<%=basePath%>material/findAll",
+                     type:'post',//method请求方式，get或者post
+                     dataType:'json',//预期服务器返回的数据类型
+                   
+                     contentType: "application/json; charset=utf-8",
+                     success:function(res){//res为相应体,function为回调函数
+                    	
+                  	    self.data = res
+                  	    
+                  	    console.log(self.data)
+                     },
+                     error:function(){
+                      
+                     }
+                   });
+        	}
+        })
+        getData()	
+        //获取资料信息
+        function getData(){
+        	 
+        }
   </script>
 </body>
 </html>

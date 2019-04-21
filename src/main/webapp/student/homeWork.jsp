@@ -74,10 +74,7 @@
     </div>
    </div>
     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
-     <script type="text/html" id="toolbarDemo">
-     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add">添加问题</button>
-     </div>
+    
     </script>
     <script type="text/html" id="barDemo">
       
@@ -140,10 +137,10 @@
           ,toolbar: '#toolbarDemo'
           ,url:'<%=basePath%>swork/myWork'
           ,cols: [[ //标题栏
-             {field: 'realname', title: '我的姓名', }
-            ,{field: 'phone', title: '我的电话'}
-            ,{field: 'question', title: '我的问题'}
-            ,{field: 'cratetime', title: '创建时间'}
+             {field: 'committime', title: '提交时间', }
+            ,{field: 'status', title: '批改状态'}
+            ,{field: 'teachername', title: '老师名字'}
+            ,{field: 'score', title: '分数'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,id:'testReload'
@@ -175,39 +172,9 @@
     	     });
        
     
-       //打开添加站点弹窗
-       function getCitys(data){
-    	   layer.open({
-  	         type: 1
-  	        ,title: false //不显示标题栏
-  	        ,closeBtn: true
-  	        ,area: ['600px','400px']
-  	        ,shade: 0.8
-  	        
-  	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-  	        ,btnAlign: 'c'
-  	        ,moveType: 1 //拖拽模式，0或者1
-  	        ,content: $("#box"),
-  	         success:function(layero, index){
-  	        	getoption('ttid')
-  	         }
-  	        
-  	       ,end:function(index){
-  	        	layer.close(index)
-  	        }
-  	      });
-  	   
-       }
+     
        
-       //头工具栏事件
-       table.on('toolbar(demo)', function(obj){
-         switch(obj.event){
-           case 'add':
-             getCitys()
-           break;
-         
-         };
-       });
+     
        //监听行工具事件
        table.on('tool(demo)', function(obj){
          var data = obj.data;
@@ -215,7 +182,7 @@
          if(obj.event === 'del'){
            layer.confirm('真的删除行么', function(index){
         	  $.ajax({
-                   url:"<%=basePath%>material/delete",
+                   url:"<%=basePath%>swork/delete",
                    type:'post',//method请求方式，get或者post
                    dataType:'json',//预期服务器返回的数据类型
                    data:JSON.stringify({id:data.id}),

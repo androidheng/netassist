@@ -41,6 +41,7 @@ public class MaterialController {
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbMaterial> findAll(){			
 		return materialService.findAll();

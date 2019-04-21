@@ -101,10 +101,11 @@
        elem: '#LAY_table_user'
        ,url: '<%=basePath%>swork/search'
        ,cols: [[
-    	    {field: 'title', title: '作业标题', }
-           ,{field: 'content', title: '作业内容'}
-           ,{field: 'teachername', title: '老师名'}
-           ,{field: 'createtime', title: '创建时间'}
+    	    {field: 'committime', title: '提交时间' }
+    	    ,{field: 'stuname', title: '学生姓名' }
+            ,{field: 'status', title: '批改状态'}
+            ,{field: 'teachername', title: '老师名字'}
+            ,{field: 'score', title: '分数'}
          ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
        ]]
        ,id: 'testReload'
@@ -134,10 +135,12 @@
      });
       
        //监听行工具事件
-       table.on('tool(demo)', function(obj){
+       table.on('tool(user)', function(obj){
          var data = obj.data;
          //打分
          if(obj.event === 'score'){
+        	 console.log(data)
+        	 if(data.isdowload!='Y') return layer.alert('请先下载作业',{icon:5})
         	 layer.open({
       	         type: 1
       	        ,title: false //不显示标题栏
@@ -183,7 +186,8 @@
 	                 data:JSON.stringify({id:data.id}),
 	                 contentType: "application/json; charset=utf-8",
 	                 success:function(res){//res为相应体,function为回调函数
-	              	     //layer.close(index);
+	                	  window.open(data.file)
+	                	  $(".layui-laypage-btn")[0].click();
 	                 },
 	                 error:function(){
 	                     layer.alert('操作失败！！！',{icon:5});

@@ -71,8 +71,8 @@
        elem: '#LAY_table_user'
        ,url: '<%=basePath%>sign/search'
        ,cols: [[
+         ,{field:'stuname', title: '签到人'}
          ,{field:'signtime', title: '签到时间'}
-        
        ]]
        ,id: 'testReload'
        ,page: true
@@ -129,6 +129,7 @@
            
            });
          } else if(obj.event === 'edit'){
+        	
         	 getCitys(data)
          }
        });

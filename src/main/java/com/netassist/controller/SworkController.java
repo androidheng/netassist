@@ -148,7 +148,7 @@ public class SworkController {
 	 * 下载作业
 	 * @param swork
 	 * @return
-	 */
+	 *//*
 	@ResponseBody
 	@RequestMapping("/dowload")
 	public ResponseEntity<byte[]> dowload(String id){
@@ -176,7 +176,25 @@ public class SworkController {
 			
 		}
 		return null;	
-	}	
+	}*/	
+	/**
+	 * 下载作业
+	 * @param swork
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/dowload")
+	public Result dowload(@RequestBody TbSwork swork){
+		try {
+			swork.setIsdowload("Y");
+			sworkService.update(swork);
+	        
+	        return new Result(true, "下载成功!");	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "下载失败!");
+		}
+	}
 	/**
 	 * 分数
 	 * @param swork

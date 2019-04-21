@@ -161,7 +161,7 @@
          if(obj.event === 'del'){
            layer.confirm('真的删除行么', function(index){
         	  $.ajax({
-                   url:"<%=basePath%>material/delete",
+                   url:"<%=basePath%>question/delete",
                    type:'post',//method请求方式，get或者post
                    dataType:'json',//预期服务器返回的数据类型
                    data:JSON.stringify({id:data.id}),
