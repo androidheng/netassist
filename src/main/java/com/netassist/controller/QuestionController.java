@@ -96,6 +96,7 @@ public class QuestionController {
 			TbTeacher tbTeacher=(TbTeacher) session.getAttribute("teacher");
 			if(tbTeacher!=null) {
 				question.setTid(tbTeacher.getId());
+				question.setReplytime(DateUtils.getCurrent());
 				questionService.update(question);
 				return new Result(true, "回答成功");
 			}else {
