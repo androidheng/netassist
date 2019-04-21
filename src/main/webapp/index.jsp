@@ -423,9 +423,9 @@
         	let userPhone = $("#userPhone").val();
         	let qustion = $("#qustion").val();
         	let parames = {
-        			userName : userName,	
-        			userPhone : userPhone,	
-        			qustion : qustion,	
+        			realname : userName,	
+        			phone : userPhone,	
+        			question : qustion,	
         	}
       	    if(!userName||!userPhone||!qustion) return alert('请完善信息');
       	    $.ajax({
@@ -471,11 +471,7 @@
                    });
         	}
         })
-        getData()	
-        //获取资料信息
-        function getData(){
-        	 
-        }
+       
   </script>
 </body>
 </html>
