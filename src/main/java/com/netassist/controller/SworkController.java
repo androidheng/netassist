@@ -151,11 +151,12 @@ public class SworkController {
 	 */
 	@ResponseBody
 	@RequestMapping("/dowload")
-	public ResponseEntity<byte[]> dowload(@RequestBody TbSwork swork){
+	public ResponseEntity<byte[]> dowload(String id){
 		try {
-			swork.setIsdowload("Y");
-			sworkService.update(swork);
-			TbSwork tbSwork = sworkService.findOne(swork.getId());
+			TbSwork tbSwork = sworkService.findOne(Integer.parseInt(id));
+			tbSwork.setIsdowload("Y");
+			sworkService.update(tbSwork);
+			
 			String downloadFilePath=tbSwork.getFile();//从我们的上传文件夹中去取
 	        
 	        File file = new File(downloadFilePath);//新建一个文件
