@@ -124,9 +124,9 @@ public class QuestionController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(@RequestBody TbQuestion question){
 		try {
-			questionService.delete(ids);
+			questionService.delete(question.getId());
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
