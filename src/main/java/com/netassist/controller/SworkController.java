@@ -234,7 +234,7 @@ public class SworkController {
 				tbSwork.setTeachername(teacherService.findOne(tbSwork.getTid()).getUsername());
 				tbSwork.setStatus("已批改");
 			}
-			tbSwork.setScore(studentService.findOne(tbSwork.getSid()).getUsername());
+			tbSwork.setStuname(studentService.findOne(tbSwork.getSid()).getUsername());
 		}
 		return 	result;
 	}
