@@ -89,6 +89,10 @@
              {field: 'realname', title: '我的姓名', }
             ,{field: 'phone', title: '我的电话'}
             ,{field: 'question', title: '我的问题'}
+            ,{field: 'answer', title: '回复内容'}
+            ,{field: 'status', title: '回复状态'}
+            ,{field: 'teachername', title: '回复老师'}
+            ,{field: 'replytime', title: '回复时间'}
             ,{field: 'cratetime', title: '创建时间'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]

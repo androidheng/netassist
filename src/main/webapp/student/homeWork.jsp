@@ -74,7 +74,10 @@
     </div>
    </div>
     <script src="https://heerey525.github.io/layui-v2.4.3/layui-v2.4.5/layui.js"></script>
-    
+     <script type="text/html" id="toolbarDemo">
+     <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">提交作业</button>
+     </div>
     </script>
     <script type="text/html" id="barDemo">
       
@@ -172,9 +175,39 @@
     	     });
        
     
-     
+       //打开添加站点弹窗
+       function getCitys(data){
+    	   layer.open({
+  	         type: 1
+  	        ,title: false //不显示标题栏
+  	        ,closeBtn: true
+  	        ,area: ['600px','400px']
+  	        ,shade: 0.8
+  	        
+  	        ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+  	        ,btnAlign: 'c'
+  	        ,moveType: 1 //拖拽模式，0或者1
+  	        ,content: $("#box"),
+  	         success:function(layero, index){
+  	        	getoption('ttid')
+  	         }
+  	        
+  	       ,end:function(index){
+  	        	layer.close(index)
+  	        }
+  	      });
+  	   
+       }
        
-     
+       //头工具栏事件
+       table.on('toolbar(demo)', function(obj){
+         switch(obj.event){
+           case 'add':
+             getCitys()
+           break;
+         
+         };
+       });
        //监听行工具事件
        table.on('tool(demo)', function(obj){
          var data = obj.data;
