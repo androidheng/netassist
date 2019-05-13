@@ -132,10 +132,12 @@ public class SignController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(String key , int page, int limit  ){
-		TbSign sign=null;
+	public PageResult search(String dates,String key , int page, int limit  ){
+		TbSign sign=new TbSign();
+		if(!StringUtils.isEmpty(dates)) {
+			sign.setSigntime(dates);
+		}
 		if(!StringUtils.isEmpty(key)) {
-			sign=new TbSign();
 			sign.setSigntime(key);
 		}
 		PageResult result = signService.findPage(sign, page, limit);	

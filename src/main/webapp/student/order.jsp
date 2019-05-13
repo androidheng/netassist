@@ -93,7 +93,7 @@
             ,{field: 'status', title: '回复状态'}
             ,{field: 'teachername', title: '回复老师'}
             ,{field: 'replytime', title: '回复时间'}
-            ,{field: 'cratetime', title: '创建时间'}
+            ,{field: 'createtime', title: '创建时间'}
             ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
          ]]
         ,skin: 'line' //表格风格

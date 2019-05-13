@@ -120,6 +120,7 @@ public class TworkController {
 	          
 			
 			} 
+			twork.setEnable("Y");
 			twork.setTid(tbTeacher.getId());	
 			twork.setCreatetime(DateUtils.getCurrent());
 			tworkService.add(twork);

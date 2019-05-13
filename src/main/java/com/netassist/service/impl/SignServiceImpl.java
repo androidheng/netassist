@@ -21,7 +21,7 @@ import entity.PageResult;
 public class SignServiceImpl implements SignService {
 
 	@Autowired
-	private TbSignMapper signMapper;
+	private TbSignMapper signMapper; 
 	
 	/**
 	 * 查询全部
@@ -86,8 +86,11 @@ public class SignServiceImpl implements SignService {
 		TbSignExample example=new TbSignExample();
 		Criteria criteria = example.createCriteria();
 		
-		if(sign!=null){			
-			criteria.andSigntimeEqualTo(sign.getSigntime());	
+		if(sign!=null){		
+			if(sign.getSigntime()!=null) {
+			  criteria.andSigntimeEqualTo(sign.getSigntime());	
+			}
+			
 		}
 		
 		Page<TbSign> page= (Page<TbSign>)signMapper.selectByExample(example);		
